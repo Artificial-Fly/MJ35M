@@ -3,6 +3,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     //variables:
+    private int RoundNumber = 0;
     public GameObject PlayerCharacter, EnemyCharacter;
     public enum PlayerActionTypes
     {
@@ -40,6 +41,23 @@ public class GameManager : MonoBehaviour
                 PlayerAction(PlayerActionTypes.Ultimate);
                 break;
         }
+        ReceiveInputFromEnemy();
+        RoundNumber++;
+    }
+    private void ReceiveInputFromEnemy()
+    {
+        //6%6=0%6=0
+        //6th action is special and skipped unless condition is met
+        int ActionIndex;
+        if (false)
+        {
+            ActionIndex = 6;
+        }
+        else
+        {
+            ActionIndex = RoundNumber % 6;
+        }
+        EnemyAction(EnemyControllerComponent.GetEnemyActionByIndex(ActionIndex));
     }
     public bool PlayerAction(PlayerActionTypes SelectedAction)
     {

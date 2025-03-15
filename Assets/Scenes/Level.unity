@@ -1038,6 +1038,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Counter
       objectReference: {fileID: 0}
+    - target: {fileID: 4938787617816759578, guid: c7386a755b4a5d54ba86374a986d2edd, type: 3}
+      propertyPath: lengthInSec
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1296,6 +1300,10 @@ PrefabInstance:
     - target: {fileID: 1510113496045053429, guid: 7f0340cde8d3beb4f93646cd3eb8c0c9, type: 3}
       propertyPath: looping
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1510113496045053429, guid: 7f0340cde8d3beb4f93646cd3eb8c0c9, type: 3}
+      propertyPath: lengthInSec
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7638149865982382004, guid: 7f0340cde8d3beb4f93646cd3eb8c0c9, type: 3}
       propertyPath: m_Name
@@ -2138,6 +2146,7 @@ MonoBehaviour:
   - {fileID: 7474021885552435256}
   - {fileID: 7474021885552435255}
   - {fileID: 7474021885552435254}
+  EnemyActionsQueue: 00000000010000000000000002000000000000000000000003000000
 --- !u!1001 &8021062013036753135
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -8,6 +8,8 @@ public class EnemyController : MonoBehaviour
 
     public ParticleSystem[] AttackVFXList, HealVFXList, CounterVFXList, UltimateVFXList;
 
+    [SerializeField]
+    private GameManager.EnemyActionTypes[] EnemyActionsQueue;
     //delegates:
 
     private void HandleOnHealthPointsIncreased(float CurrentValue, float MaxValue, float DeltaKoef)
@@ -36,45 +38,49 @@ public class EnemyController : MonoBehaviour
         //
     }
     //methods:
+    public GameManager.EnemyActionTypes GetEnemyActionByIndex(int Index)
+    {
+        return EnemyActionsQueue[Index];
+    }
     public bool Attack()
     {
         //
-        bool success = false;
+        bool Success = false;
         foreach (ParticleSystem AttackVFX in AttackVFXList)
         {
             AttackVFX.Play();
         }
-        return success;
+        return Success;
     }
     public bool Heal()
     {
         //
-        bool success = false;
+        bool Success = false;
         foreach (ParticleSystem HealVFX in HealVFXList)
         {
             HealVFX.Play();
         }
-        return success;
+        return Success;
     }
     public bool Counter()
     {
         //
-        bool success = false;
+        bool Success = false;
         foreach (ParticleSystem CounterVFX in CounterVFXList)
         {
             CounterVFX.Play();
         }
-        return success;
+        return Success;
     }
     public bool Ultimate()
     {
         //
-        bool success = false;
+        bool Success = false;
         foreach (ParticleSystem UltimateVFX in UltimateVFXList)
         {
             UltimateVFX.Play();
         }
-        return success;
+        return Success;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
