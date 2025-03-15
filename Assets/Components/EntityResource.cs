@@ -18,7 +18,7 @@ public class EntityResource : MonoBehaviour
     //methods:
     public bool IncreaseValue(float Amount)
     {
-        bool success = false;
+        bool Success = false;
         //logic goes here
         if (Amount > 0)
         {
@@ -33,15 +33,15 @@ public class EntityResource : MonoBehaviour
             if (OnValueIncreased != null)
             {
                 OnValueIncreased(CurrentValue, MaxValue, CalculateDeltaKoef());
-                success = true;
+                Success = true;
             }
         }
         //--------------
-        return success;
+        return Success;
     }
     public bool DecreaseValue(float Amount)
     {
-        bool success = false;
+        bool Success = false;
         //logic goes here
         if (Amount > 0)
         {
@@ -56,12 +56,12 @@ public class EntityResource : MonoBehaviour
             if (OnValueDecreased != null)
             {
                 OnValueDecreased(CurrentValue, MaxValue, CalculateDeltaKoef());
-                success = true;
+                Success = true;
                 if (CurrentValue == MinValue)
                 {
                     if (OnValueReachedMinimum == null)
                     {
-                        success = false;
+                        Success = false;
                     }
                     else
                     {
@@ -71,7 +71,7 @@ public class EntityResource : MonoBehaviour
             }
         }
         //--------------
-        return success;
+        return Success;
     }
     private float CalculateDeltaKoef()
     {
