@@ -1885,6 +1885,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2365828550923380910, guid: cf27dccc3d79b854ea745ad96a289456, type: 3}
+      propertyPath: MaxValue
+      value: 900
+      objectReference: {fileID: 0}
     - target: {fileID: 3752592571319725560, guid: cf27dccc3d79b854ea745ad96a289456, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.8490889
@@ -1924,6 +1928,10 @@ PrefabInstance:
     - target: {fileID: 3752592571319725560, guid: cf27dccc3d79b854ea745ad96a289456, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3785181290035654091, guid: cf27dccc3d79b854ea745ad96a289456, type: 3}
+      propertyPath: MaxValue
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 4557581811582186522, guid: cf27dccc3d79b854ea745ad96a289456, type: 3}
       propertyPath: 'HealVFXList.Array.data[0]'
@@ -2107,6 +2115,14 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5168048420379317463, guid: d40727da24ba99441bedebad452191e5, type: 3}
+      propertyPath: MaxValue
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 7316247001819863810, guid: d40727da24ba99441bedebad452191e5, type: 3}
+      propertyPath: MaxValue
+      value: 900
+      objectReference: {fileID: 0}
     - target: {fileID: 8990865449893625274, guid: d40727da24ba99441bedebad452191e5, type: 3}
       propertyPath: m_Name
       value: Tower_Enemy
@@ -2216,6 +2232,30 @@ PrefabInstance:
       propertyPath: EnemyCharacter
       value: 
       objectReference: {fileID: 7614557030385956959}
+    - target: {fileID: 168772376101041165, guid: 5ba79ca3550db804fa0d17febeca48bc, type: 3}
+      propertyPath: LowHPCostValue
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 168772376101041165, guid: 5ba79ca3550db804fa0d17febeca48bc, type: 3}
+      propertyPath: LowMPCostValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 168772376101041165, guid: 5ba79ca3550db804fa0d17febeca48bc, type: 3}
+      propertyPath: MidHPCostValue
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 168772376101041165, guid: 5ba79ca3550db804fa0d17febeca48bc, type: 3}
+      propertyPath: MidMPCostValue
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 168772376101041165, guid: 5ba79ca3550db804fa0d17febeca48bc, type: 3}
+      propertyPath: HighHPCostValue
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 168772376101041165, guid: 5ba79ca3550db804fa0d17febeca48bc, type: 3}
+      propertyPath: HighMPCostValue
+      value: 400
+      objectReference: {fileID: 0}
     - target: {fileID: 168772376101041165, guid: 5ba79ca3550db804fa0d17febeca48bc, type: 3}
       propertyPath: PlayerCharacter
       value: 

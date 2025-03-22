@@ -1,10 +1,10 @@
-using UnityEngine;
+ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
     //variables:
     private HealthPoints HealthPointsComponent;
-    private EnergyPoints EnergyPointsComponent;
+    private MagicPoints MagicPointsComponent;
 
     public ParticleSystem[] AttackVFXList, HealVFXList, CounterVFXList, UltimateVFXList;
 
@@ -25,15 +25,15 @@ public class EnemyController : MonoBehaviour
         //
     }
 
-    private void HandleOnEnergyPointsIncreased(float CurrentValue, float MaxValue, float DeltaKoef)
+    private void HandleOnMagicPointsIncreased(float CurrentValue, float MaxValue, float DeltaKoef)
     {
         //
     }
-    private void HandleOnEnergyPointsDecreased(float CurrentValue, float MaxValue, float DeltaKoef)
+    private void HandleOnMagicPointsDecreased(float CurrentValue, float MaxValue, float DeltaKoef)
     {
         //
     }
-    private void HandleOnEnergyPointsReachedMinimum()
+    private void HandleOnMagicPointsReachedMinimum()
     {
         //
     }
@@ -93,12 +93,12 @@ public class EnemyController : MonoBehaviour
             HealthPointsComponent.OnValueDecreased += HandleOnHealthPointsDecreased;
             HealthPointsComponent.OnValueReachedMinimum += HandleOnHealthPointsReachedMinimum;
         }
-        EnergyPointsComponent = gameObject.GetComponent<EnergyPoints>();
-        if (EnergyPointsComponent != null)
+        MagicPointsComponent = gameObject.GetComponent<MagicPoints>();
+        if (MagicPointsComponent != null)
         {
-            EnergyPointsComponent.OnValueIncreased += HandleOnEnergyPointsIncreased;
-            EnergyPointsComponent.OnValueDecreased += HandleOnEnergyPointsDecreased;
-            EnergyPointsComponent.OnValueReachedMinimum += HandleOnEnergyPointsReachedMinimum;
+            MagicPointsComponent.OnValueIncreased += HandleOnMagicPointsIncreased;
+            MagicPointsComponent.OnValueDecreased += HandleOnMagicPointsDecreased;
+            MagicPointsComponent.OnValueReachedMinimum += HandleOnMagicPointsReachedMinimum;
         }
     }
 
