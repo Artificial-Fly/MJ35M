@@ -6,6 +6,7 @@ public class EntityResource : MonoBehaviour
     private float CurrentValue = 0.0f;
     public float MaxValue = 10.0f, MinValue = 0.0f;
     public bool SetMaxValueAtStart = true;
+    public float InitialValue = 0.0f;
 
     //delegates:
     public delegate void ValueIncreased(float CurrentValue, float MaxValue, float DeltaKoef);
@@ -90,7 +91,7 @@ public class EntityResource : MonoBehaviour
         }
         else
         {
-            IncreaseValue(MinValue);
+            IncreaseValue(InitialValue);
         }
     }
 

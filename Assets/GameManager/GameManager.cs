@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,27 +26,31 @@ public class GameManager : MonoBehaviour
     private EnemyActionTypes NextEnemyAction;
     private EnemyController EnemyControllerComponent;
     private PlayerController PlayerControllerComponent;
-    private HealthPoints PlayerHP, EnemyHP;
-    private MagicPoints PlayerMP, EnemyMP;
+    private HealthPoints PlayerHPComponent, EnemyHPComponent;
+    private MagicPoints PlayerMPComponent, EnemyMPComponent;
     public float LowHPCostValue, MidHPCostValue, HighHPCostValue, LowMPCostValue, MidMPCostValue, HighMPCostValue;
     //delegates: 
 
     //methods: 
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+    }
     private bool CalculateCurrentRound()
     {
         bool success = false;
-        if ((NextPlayerAction != null && NextEnemyAction != null) && (PlayerHP != null && PlayerMP != null) && (EnemyHP!=null && EnemyMP!=null))
+        if ((NextPlayerAction != null && NextEnemyAction != null) && (PlayerHPComponent != null && PlayerMPComponent != null) && (EnemyHPComponent!=null && EnemyMPComponent!=null))
         {
             if(NextPlayerAction == PlayerActionTypes.Attack)
             {
                 if(NextEnemyAction == EnemyActionTypes.Attack)
                 {
                     //both player and enemy deal equal damage
-                    PlayerMP.DecreaseValue(LowMPCostValue);
-                    EnemyMP.DecreaseValue(LowMPCostValue);
+                    PlayerMPComponent.DecreaseValue(LowMPCostValue);
+                    EnemyMPComponent.DecreaseValue(LowMPCostValue);
 
-                    PlayerHP.DecreaseValue(LowHPCostValue);
-                    EnemyHP.DecreaseValue(LowHPCostValue);
+                    PlayerHPComponent.DecreaseValue(LowHPCostValue);
+                    EnemyHPComponent.DecreaseValue(LowHPCostValue);
 
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -55,12 +60,12 @@ public class GameManager : MonoBehaviour
                 else if (NextEnemyAction == EnemyActionTypes.Heal)
                 {
                     //player gains magic points additionally
-                    PlayerMP.DecreaseValue(LowMPCostValue);
-                    EnemyMP.DecreaseValue(MidMPCostValue);
+                    PlayerMPComponent.DecreaseValue(LowMPCostValue);
+                    EnemyMPComponent.DecreaseValue(MidMPCostValue);
 
-                    PlayerMP.IncreaseValue(MidMPCostValue);
-                    EnemyHP.IncreaseValue(LowHPCostValue);
-                    EnemyHP.DecreaseValue(MidHPCostValue);
+                    PlayerMPComponent.IncreaseValue(MidMPCostValue);
+                    EnemyHPComponent.IncreaseValue(LowHPCostValue);
+                    EnemyHPComponent.DecreaseValue(MidHPCostValue);
 
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -70,10 +75,10 @@ public class GameManager : MonoBehaviour
                 else if (NextEnemyAction == EnemyActionTypes.Counter)
                 {
                     //enemy cancels player's ultimate and gains magic points 
-                    PlayerMP.DecreaseValue(LowMPCostValue);
-                    EnemyHP.DecreaseValue(LowHPCostValue);
+                    PlayerMPComponent.DecreaseValue(LowMPCostValue);
+                    EnemyHPComponent.DecreaseValue(LowHPCostValue);
 
-                    EnemyMP.IncreaseValue(LowMPCostValue);
+                    EnemyMPComponent.IncreaseValue(LowMPCostValue);
 
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -83,12 +88,12 @@ public class GameManager : MonoBehaviour
                 else if (NextEnemyAction == EnemyActionTypes.Ultimate)
                 {
                     //both deal damage, but enemy deals more and gains magic points
-                    PlayerMP.DecreaseValue(LowMPCostValue);
-                    EnemyMP.DecreaseValue(HighMPCostValue);
+                    PlayerMPComponent.DecreaseValue(LowMPCostValue);
+                    EnemyMPComponent.DecreaseValue(HighMPCostValue);
 
-                    PlayerHP.DecreaseValue(HighHPCostValue);
-                    EnemyHP.DecreaseValue(LowHPCostValue);
-                    EnemyMP.IncreaseValue(LowMPCostValue);
+                    PlayerHPComponent.DecreaseValue(HighHPCostValue);
+                    EnemyHPComponent.DecreaseValue(LowHPCostValue);
+                    EnemyMPComponent.IncreaseValue(LowMPCostValue);
 
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -99,10 +104,10 @@ public class GameManager : MonoBehaviour
                 {
                     //player deals damage, enemy does nothing
                     //enemy gains magic point for rest
-                    PlayerMP.DecreaseValue(LowMPCostValue);
+                    PlayerMPComponent.DecreaseValue(LowMPCostValue);
                     
-                    PlayerHP.DecreaseValue(HighHPCostValue);
-                    EnemyMP.IncreaseValue(LowMPCostValue);
+                    PlayerHPComponent.DecreaseValue(HighHPCostValue);
+                    EnemyMPComponent.IncreaseValue(LowMPCostValue);
                     
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -114,12 +119,12 @@ public class GameManager : MonoBehaviour
                 if (NextEnemyAction == EnemyActionTypes.Attack)
                 {
                     //enemy gains magic points additionally
-                    PlayerMP.DecreaseValue(MidMPCostValue);
-                    EnemyMP.DecreaseValue(LowMPCostValue);
+                    PlayerMPComponent.DecreaseValue(MidMPCostValue);
+                    EnemyMPComponent.DecreaseValue(LowMPCostValue);
 
-                    PlayerHP.IncreaseValue(LowHPCostValue);
-                    PlayerHP.DecreaseValue(MidHPCostValue);
-                    EnemyMP.IncreaseValue(MidMPCostValue);
+                    PlayerHPComponent.IncreaseValue(LowHPCostValue);
+                    PlayerHPComponent.DecreaseValue(MidHPCostValue);
+                    EnemyMPComponent.IncreaseValue(MidMPCostValue);
                     
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -129,11 +134,11 @@ public class GameManager : MonoBehaviour
                 else if (NextEnemyAction == EnemyActionTypes.Heal)
                 {
                     //both enemy and player heal themselves
-                    PlayerMP.DecreaseValue(MidMPCostValue);
-                    EnemyMP.DecreaseValue(MidMPCostValue);
+                    PlayerMPComponent.DecreaseValue(MidMPCostValue);
+                    EnemyMPComponent.DecreaseValue(MidMPCostValue);
 
-                    PlayerHP.IncreaseValue(LowHPCostValue);
-                    EnemyHP.IncreaseValue(LowHPCostValue);
+                    PlayerHPComponent.IncreaseValue(LowHPCostValue);
+                    EnemyHPComponent.IncreaseValue(LowHPCostValue);
 
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -144,10 +149,10 @@ public class GameManager : MonoBehaviour
                 else if (NextEnemyAction == EnemyActionTypes.Counter)
                 {
                     //player heals themselves big
-                    PlayerMP.DecreaseValue(MidMPCostValue);
-                    EnemyHP.DecreaseValue(LowHPCostValue);
+                    PlayerMPComponent.DecreaseValue(MidMPCostValue);
+                    EnemyHPComponent.DecreaseValue(LowHPCostValue);
 
-                    PlayerHP.IncreaseValue(MidHPCostValue);
+                    PlayerHPComponent.IncreaseValue(MidHPCostValue);
 
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -157,12 +162,12 @@ public class GameManager : MonoBehaviour
                 else if (NextEnemyAction == EnemyActionTypes.Ultimate)
                 {
                     //player heals themselves but enemy deals big damage and gains magic points
-                    PlayerMP.DecreaseValue(MidMPCostValue);
-                    EnemyMP.DecreaseValue(HighMPCostValue);
+                    PlayerMPComponent.DecreaseValue(MidMPCostValue);
+                    EnemyMPComponent.DecreaseValue(HighMPCostValue);
 
-                    PlayerHP.IncreaseValue(LowHPCostValue);
-                    PlayerHP.DecreaseValue(HighHPCostValue);
-                    EnemyMP.IncreaseValue(LowMPCostValue);
+                    PlayerHPComponent.IncreaseValue(LowHPCostValue);
+                    PlayerHPComponent.DecreaseValue(HighHPCostValue);
+                    EnemyMPComponent.IncreaseValue(LowMPCostValue);
 
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -173,10 +178,10 @@ public class GameManager : MonoBehaviour
                 {
                     //player heals, enemy does nothing
                     //enemy gains magic point for rest
-                    PlayerMP.DecreaseValue(MidMPCostValue);
+                    PlayerMPComponent.DecreaseValue(MidMPCostValue);
 
-                    PlayerHP.IncreaseValue(LowHPCostValue);
-                    EnemyMP.IncreaseValue(LowMPCostValue);
+                    PlayerHPComponent.IncreaseValue(LowHPCostValue);
+                    EnemyMPComponent.IncreaseValue(LowMPCostValue);
 
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -189,10 +194,10 @@ public class GameManager : MonoBehaviour
                 if (NextEnemyAction == EnemyActionTypes.Attack)
                 {
                     //enemy deals no damage, player gains magic points
-                    PlayerHP.DecreaseValue(LowHPCostValue);
-                    EnemyMP.DecreaseValue(LowMPCostValue);
+                    PlayerHPComponent.DecreaseValue(LowHPCostValue);
+                    EnemyMPComponent.DecreaseValue(LowMPCostValue);
 
-                    PlayerMP.IncreaseValue(LowMPCostValue);
+                    PlayerMPComponent.IncreaseValue(LowMPCostValue);
 
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -202,10 +207,10 @@ public class GameManager : MonoBehaviour
                 else if (NextEnemyAction == EnemyActionTypes.Heal)
                 {
                     //enemy heals themselves big
-                    PlayerHP.DecreaseValue(LowHPCostValue);
-                    EnemyMP.DecreaseValue(LowMPCostValue);
+                    PlayerHPComponent.DecreaseValue(LowHPCostValue);
+                    EnemyMPComponent.DecreaseValue(LowMPCostValue);
 
-                    EnemyHP.IncreaseValue(MidHPCostValue);
+                    EnemyHPComponent.IncreaseValue(MidHPCostValue);
 
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -215,8 +220,8 @@ public class GameManager : MonoBehaviour
                 else if (NextEnemyAction == EnemyActionTypes.Counter)
                 {
                     //both player and enemy fail to counter each other
-                    PlayerHP.DecreaseValue(LowHPCostValue);
-                    EnemyHP.DecreaseValue(LowHPCostValue);
+                    PlayerHPComponent.DecreaseValue(LowHPCostValue);
+                    EnemyHPComponent.DecreaseValue(LowHPCostValue);
 
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -226,10 +231,10 @@ public class GameManager : MonoBehaviour
                 else if (NextEnemyAction == EnemyActionTypes.Ultimate)
                 {
                     //player cancels enemy's ultimate and gains magic points big
-                    PlayerHP.DecreaseValue(LowHPCostValue);
-                    EnemyMP.DecreaseValue(HighMPCostValue);
+                    PlayerHPComponent.DecreaseValue(LowHPCostValue);
+                    EnemyMPComponent.DecreaseValue(HighMPCostValue);
 
-                    PlayerMP.IncreaseValue(MidMPCostValue);
+                    PlayerMPComponent.IncreaseValue(MidMPCostValue);
 
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -240,9 +245,9 @@ public class GameManager : MonoBehaviour
                 {
                     //player fails to counter as enemy does nothing
                     //enemy gains magic point for rest
-                    PlayerHP.DecreaseValue(LowHPCostValue);
+                    PlayerHPComponent.DecreaseValue(LowHPCostValue);
 
-                    EnemyMP.IncreaseValue(LowMPCostValue);
+                    EnemyMPComponent.IncreaseValue(LowMPCostValue);
 
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -255,12 +260,12 @@ public class GameManager : MonoBehaviour
                 if (NextEnemyAction == EnemyActionTypes.Attack)
                 {
                     //both deal damage, but player deals more and gains magic points
-                    PlayerMP.DecreaseValue(HighMPCostValue);
-                    EnemyMP.DecreaseValue(LowMPCostValue);
+                    PlayerMPComponent.DecreaseValue(HighMPCostValue);
+                    EnemyMPComponent.DecreaseValue(LowMPCostValue);
 
-                    PlayerHP.DecreaseValue(LowHPCostValue);
-                    PlayerMP.IncreaseValue(LowMPCostValue);
-                    EnemyHP.DecreaseValue(HighHPCostValue);
+                    PlayerHPComponent.DecreaseValue(LowHPCostValue);
+                    PlayerMPComponent.IncreaseValue(LowMPCostValue);
+                    EnemyHPComponent.DecreaseValue(HighHPCostValue);
 
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -270,12 +275,12 @@ public class GameManager : MonoBehaviour
                 else if (NextEnemyAction == EnemyActionTypes.Heal)
                 {
                     //enemy heals themselves but player deals big damage and gains magic points
-                    PlayerMP.DecreaseValue(HighMPCostValue);
-                    EnemyMP.DecreaseValue(MidMPCostValue);
+                    PlayerMPComponent.DecreaseValue(HighMPCostValue);
+                    EnemyMPComponent.DecreaseValue(MidMPCostValue);
 
-                    PlayerMP.IncreaseValue(LowMPCostValue);
-                    EnemyHP.IncreaseValue(LowHPCostValue);
-                    EnemyHP.DecreaseValue(HighHPCostValue);
+                    PlayerMPComponent.IncreaseValue(LowMPCostValue);
+                    EnemyHPComponent.IncreaseValue(LowHPCostValue);
+                    EnemyHPComponent.DecreaseValue(HighHPCostValue);
 
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -285,10 +290,10 @@ public class GameManager : MonoBehaviour
                 else if (NextEnemyAction == EnemyActionTypes.Counter)
                 {
                     //enemy cancels player's ultimate and gains magic points big
-                    PlayerMP.DecreaseValue(HighMPCostValue);
-                    EnemyHP.DecreaseValue(LowHPCostValue);
+                    PlayerMPComponent.DecreaseValue(HighMPCostValue);
+                    EnemyHPComponent.DecreaseValue(LowHPCostValue);
 
-                    EnemyMP.IncreaseValue(MidMPCostValue);
+                    EnemyMPComponent.IncreaseValue(MidMPCostValue);
 
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -298,11 +303,11 @@ public class GameManager : MonoBehaviour
                 else if (NextEnemyAction == EnemyActionTypes.Ultimate)
                 {
                     //both deal big damage
-                    PlayerMP.DecreaseValue(HighMPCostValue);
-                    EnemyMP.DecreaseValue(HighMPCostValue);
+                    PlayerMPComponent.DecreaseValue(HighMPCostValue);
+                    EnemyMPComponent.DecreaseValue(HighMPCostValue);
 
-                    PlayerHP.DecreaseValue(HighHPCostValue);
-                    EnemyHP.DecreaseValue(HighHPCostValue);
+                    PlayerHPComponent.DecreaseValue(HighHPCostValue);
+                    EnemyHPComponent.DecreaseValue(HighHPCostValue);
 
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -313,10 +318,10 @@ public class GameManager : MonoBehaviour
                 {
                     //player deals big damage, enemy does nothing
                     //enemy gains magic point for rest
-                    PlayerMP.DecreaseValue(HighMPCostValue);
+                    PlayerMPComponent.DecreaseValue(HighMPCostValue);
 
-                    EnemyHP.DecreaseValue(HighHPCostValue);
-                    EnemyMP.IncreaseValue(LowMPCostValue);
+                    EnemyHPComponent.DecreaseValue(HighHPCostValue);
+                    EnemyMPComponent.IncreaseValue(LowMPCostValue);
 
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -330,10 +335,10 @@ public class GameManager : MonoBehaviour
                 {
                     //player does nothing, enemy deals damage
                     //player gains magic points for rest
-                    EnemyMP.DecreaseValue(LowMPCostValue);
+                    EnemyMPComponent.DecreaseValue(LowMPCostValue);
 
-                    PlayerMP.IncreaseValue(LowMPCostValue);
-                    PlayerHP.DecreaseValue(LowHPCostValue);
+                    PlayerMPComponent.IncreaseValue(LowMPCostValue);
+                    PlayerHPComponent.DecreaseValue(LowHPCostValue);
 
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -344,10 +349,10 @@ public class GameManager : MonoBehaviour
                 {
                     //player does nothing, enemy heals themselves
                     //player gains magic points for rest
-                    EnemyMP.DecreaseValue(MidMPCostValue);
+                    EnemyMPComponent.DecreaseValue(MidMPCostValue);
 
-                    PlayerMP.IncreaseValue(LowMPCostValue);
-                    EnemyHP.IncreaseValue(LowHPCostValue);
+                    PlayerMPComponent.IncreaseValue(LowMPCostValue);
+                    EnemyHPComponent.IncreaseValue(LowHPCostValue);
 
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -356,9 +361,9 @@ public class GameManager : MonoBehaviour
                 {
                     //player does nothing, enemy fails to counter
                     //player gains magic points for rest
-                    EnemyHP.DecreaseValue(LowHPCostValue);
+                    EnemyHPComponent.DecreaseValue(LowHPCostValue);
 
-                    PlayerMP.IncreaseValue(LowMPCostValue);
+                    PlayerMPComponent.IncreaseValue(LowMPCostValue);
 
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -369,10 +374,10 @@ public class GameManager : MonoBehaviour
                 {
                     //player does nothing, enemy deals big damage
                     //player gains magic points for rest
-                    EnemyMP.DecreaseValue(HighMPCostValue);
+                    EnemyMPComponent.DecreaseValue(HighMPCostValue);
 
-                    PlayerMP.IncreaseValue(LowMPCostValue);
-                    PlayerHP.DecreaseValue(HighHPCostValue);
+                    PlayerMPComponent.IncreaseValue(LowMPCostValue);
+                    PlayerHPComponent.DecreaseValue(HighHPCostValue);
 
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -383,8 +388,8 @@ public class GameManager : MonoBehaviour
                 {
                     //player does nothing, enemy does nothing
                     //both gain magic points for rest
-                    PlayerMP.IncreaseValue(LowMPCostValue);
-                    EnemyMP.IncreaseValue(LowMPCostValue);
+                    PlayerMPComponent.IncreaseValue(LowMPCostValue);
+                    EnemyMPComponent.IncreaseValue(LowMPCostValue);
 
                     PlayPlayerAction(NextPlayerAction);
                     PlayEnemyAction(NextEnemyAction);
@@ -427,7 +432,7 @@ public class GameManager : MonoBehaviour
         //6%6=0%6=0
         //6th action is special and skipped unless condition is met
         int ActionIndex;
-        if (EnemyMP.GetCurrentValue()>=EnemyMP.MaxValue)
+        if (EnemyMPComponent.GetCurrentValue()>=EnemyMPComponent.MaxValue)
         {
             ActionIndex = 6;
         }
@@ -437,7 +442,7 @@ public class GameManager : MonoBehaviour
         }
         //PlayEnemyAction(EnemyControllerComponent.GetEnemyActionByIndex(ActionIndex));
         NextEnemyAction = EnemyControllerComponent.GetEnemyActionByIndex(ActionIndex);
-
+        CalculateCurrentRound();
     }
     public bool PlayPlayerAction(PlayerActionTypes SelectedAction)
     {
@@ -501,14 +506,14 @@ public class GameManager : MonoBehaviour
         if (PlayerCharacter != null)
         {
             PlayerControllerComponent = PlayerCharacter.gameObject.GetComponent<PlayerController>();
-            PlayerHP = PlayerCharacter.gameObject.GetComponent<HealthPoints>();
-            PlayerMP = PlayerCharacter.gameObject.GetComponent<MagicPoints>();
+            PlayerHPComponent = PlayerCharacter.gameObject.GetComponent<HealthPoints>();
+            PlayerMPComponent = PlayerCharacter.gameObject.GetComponent<MagicPoints>();
         }
         if (EnemyCharacter != null)
         {
             EnemyControllerComponent = EnemyCharacter.gameObject.GetComponent<EnemyController>();
-            PlayerHP = EnemyCharacter.gameObject.GetComponent<HealthPoints>();
-            PlayerMP = EnemyCharacter.gameObject.GetComponent<MagicPoints>();
+            EnemyHPComponent = EnemyCharacter.gameObject.GetComponent<HealthPoints>();
+            EnemyMPComponent = EnemyCharacter.gameObject.GetComponent<MagicPoints>();
         }
     }
 
