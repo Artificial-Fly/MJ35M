@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections; 
 using static HUDManager;
 
 public class HUDManager : MonoBehaviour
@@ -46,7 +47,7 @@ public class HUDManager : MonoBehaviour
     [SerializeField]
     private Slider PlayerHPBar, PlayerMPBar, EnemyHPBar;
     [SerializeField]
-    private GameObject GameOverScreen, CombatScreen;
+    private GameObject GameOverScreen, CombatScreen, PlayerWinsText, EnemyWinsText;
     /*[SerializeField]
     private ActionButtonAndCostValueTypePair[] PlayerActionsAndMagicPointsCost;*/
     [SerializeField]
@@ -55,6 +56,7 @@ public class HUDManager : MonoBehaviour
     private float[] PlayerActionCostValues;
     [SerializeField]
     private ActionCostTypes[] PlayerActionsCostTypes;
+    private bool IsPlayerWon=false;
     //delegates:
     private void HandleOnPlayerHealthPointsIncreased(float CurrentValue, float MaxValue, float DeltaKoef) {
         //
@@ -68,6 +70,7 @@ public class HUDManager : MonoBehaviour
     }
     private void HandleOnPlayerHealthPointsReachedMinimum() {
         //
+        IsPlayerWon = false;
         UpdateHUDState(HUDStates.GameOverScreen);
     }
     private void HandleOnPlayerMagicPointsIncreased(float CurrentValue, float MaxValue, float DeltaKoef) {
@@ -95,6 +98,7 @@ public class HUDManager : MonoBehaviour
     }
     private void HandleOnEnemyHealthPointsReachedMinimum()
     {
+        IsPlayerWon = true;
         UpdateHUDState(HUDStates.GameOverScreen);
     }
     //methods:
@@ -123,17 +127,42 @@ public class HUDManager : MonoBehaviour
     {
         //
         bool Success = false;
-        if(NewState == HUDStates.CombatScreen)
+        Debug.Log("Starting Changing UI's state..");
+        if (NewState == HUDStates.CombatScreen)
         {
-            CombatScreen.SetActive(true);
-            GameOverScreen.SetActive(false);
+            StartCoroutine(SetUIStateToCombatScreen());
+            Success = true;
         }
         else if (NewState == HUDStates.GameOverScreen)
         {
-            CombatScreen.SetActive(false);
-            GameOverScreen.SetActive(true);
+            StartCoroutine(SetUIStateToGameOverScreen());
+            Success = true;
         }
-            return Success;
+        return Success;
+    }
+    private IEnumerator SetUIStateToCombatScreen()
+    {
+        CombatScreen.SetActive(true);
+        yield return new WaitForSeconds(0);
+        GameOverScreen.SetActive(false);
+        Debug.Log("..Changed UI's state to CombatScreen");
+    }
+    private IEnumerator SetUIStateToGameOverScreen()
+    {
+        CombatScreen.SetActive(false);
+        yield return new WaitForSeconds(5);
+        GameOverScreen.SetActive(true);
+        if (IsPlayerWon)
+        {
+            PlayerWinsText.SetActive(true);
+            EnemyWinsText.SetActive(false);
+        }
+        else
+        {
+            PlayerWinsText.SetActive(false);
+            EnemyWinsText.SetActive(true);
+        }
+            Debug.Log("..Changed UI's state to GameOverScreen");
     }
     private bool UpdatePlayerActionButtons(ActionCostTypes CheckedResourceType, float ControlValue)
     {

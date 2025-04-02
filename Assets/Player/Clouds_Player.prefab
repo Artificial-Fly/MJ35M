@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 619156255403487839}
+  - component: {fileID: 5568553208939079263}
   m_Layer: 0
   m_Name: Clouds_Player
   m_TagString: Untagged
@@ -24,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2724947902093978771}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.64712983, z: -0, w: 0.7623798}
+  m_LocalRotation: {x: 0, y: -0.6471291, z: 0, w: 0.7623804}
   m_LocalPosition: {x: -0.86669815, y: 2.93, z: -0.0478009}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -34,6 +35,21 @@ Transform:
   - {fileID: 7794727275090374947}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -80.651, z: 0}
+--- !u!114 &5568553208939079263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2724947902093978771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46f2cf220ba3f314d913f8049e6b0766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotationSpeedPerFrame: {x: 0, y: -1.75, z: 0}
+  RotateAroundSelf: 0
+  RotateAroundThisObject: {fileID: 0}
 --- !u!1001 &7794727275089980323
 PrefabInstance:
   m_ObjectHideFlags: 0
