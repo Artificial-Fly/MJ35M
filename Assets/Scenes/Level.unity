@@ -1321,6 +1321,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 9111819971817522783}
+    - target: {fileID: 2581359355072656056, guid: 9a24dbb91889dd344bde67fb7a89c95a, type: 3}
+      propertyPath: m_Value
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2973023315431109830, guid: 9a24dbb91889dd344bde67fb7a89c95a, type: 3}
       propertyPath: EnemyHPBar
       value: 
@@ -1461,6 +1465,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 9111819971817522783}
+    - target: {fileID: 6707647736345818091, guid: 9a24dbb91889dd344bde67fb7a89c95a, type: 3}
+      propertyPath: m_Value
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7195688257881455670, guid: 9a24dbb91889dd344bde67fb7a89c95a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1730,7 +1738,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5414362068325533677, guid: d40727da24ba99441bedebad452191e5, type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7316247001819863810, guid: d40727da24ba99441bedebad452191e5, type: 3}
       propertyPath: MaxValue

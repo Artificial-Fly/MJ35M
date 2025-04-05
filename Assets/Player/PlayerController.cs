@@ -70,7 +70,16 @@ public class PlayerController : MonoBehaviour
         }
         return Success;
     }
-
+    private void HP_InitHUD()
+    {
+        HealthPointsComponent.IncreaseValue(0.1f);
+        //MagicPointsComponent.IncreaseValue(0.0f);
+    }
+    private void MP_InitHUD()
+    {
+        //HealthPointsComponent.IncreaseValue(0.0f);
+        MagicPointsComponent.IncreaseValue(0.1f);
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -80,6 +89,7 @@ public class PlayerController : MonoBehaviour
             HealthPointsComponent.OnValueIncreased += HandleOnHealthPointsIncreased;
             HealthPointsComponent.OnValueDecreased += HandleOnHealthPointsDecreased;
             HealthPointsComponent.OnValueReachedMinimum += HandleOnHealthPointsReachedMinimum;
+            InvokeRepeating("HP_InitHUD", 0.3f, 0);
         }
         MagicPointsComponent = gameObject.GetComponent<MagicPoints>();
         if (MagicPointsComponent != null)
@@ -87,6 +97,7 @@ public class PlayerController : MonoBehaviour
             MagicPointsComponent.OnValueIncreased += HandleOnMagicPointsIncreased;
             MagicPointsComponent.OnValueDecreased += HandleOnMagicPointsDecreased;
             MagicPointsComponent.OnValueReachedMinimum += HandleOnMagicPointsReachedMinimum;
+            InvokeRepeating("MP_InitHUD", 0.3f, 0);
         }
     }
 
